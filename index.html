@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Воздушный Шар</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Воздушный Шар</span>
+    </div>
+    <dl class="wallet">
+      <div><dt>Бонусы</dt><dd id="balance">—</dd></div>
+      <div><dt>Очки</dt><dd id="points">—</dd></div>
+      <div class="player"><dt>Игрок</dt><dd id="username">demo</dd></div>
+    </dl>
+  </header>
+
+  <main class="layout">
+    <section class="flight" aria-label="Полёт">
+      <div class="sheet-head">
+        <span>Лист зондирования</span>
+        <span id="round-label">раунд не начат</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chart" aria-hidden="true"></canvas>
+        <div class="readout">
+          <span class="readout-x">x</span><span id="multiplier">1.00</span>
+          <div class="readout-level" id="level-label">на земле</div>
+        </div>
+        <div class="stamp" id="stamp" hidden></div>
+      </div>
+      <div class="sheet-foot">
+        <span id="hint">Выберите тему и ставку, затем «Запустить шар».</span>
+      </div>
+    </section>
+
+    <aside class="panel" aria-label="Ставка">
+      <fieldset class="block">
+        <legend>Маршрут</legend>
+        <div class="themes" role="radiogroup">
+          <label class="theme-opt theme-green">
+            <input type="radio" name="theme" id="theme-green" value="green" checked>
+            <span class="theme-name">Зелёный</span>
+            <span class="theme-meta" data-theme-meta="green">9 уровней</span>
+          </label>
+          <label class="theme-opt theme-red">
+            <input type="radio" name="theme" id="theme-red" value="red">
+            <span class="theme-name">Красный</span>
+            <span class="theme-meta" data-theme-meta="red">12 уровней</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="block">
+        <legend>Ставка</legend>
+        <div class="bets" id="bets"></div>
+      </fieldset>
+
+      <div class="actions">
+        <button class="btn btn-launch" id="launch" type="button">Запустить шар</button>
+        <button class="btn btn-cashout" id="cashout" type="button" disabled>Забрать</button>
+      </div>
+      <p class="error" id="error" role="alert" hidden></p>
+
+      <section class="block collection" aria-label="Коллекция">
+        <div class="block-title">
+          <span>Коллекция</span>
+          <span class="muted" id="collection-bonus"></span>
+        </div>
+        <ol class="fragments" id="fragments"></ol>
+      </section>
+    </aside>
+
+    <section class="history" aria-label="История">
+      <div class="block-title">
+        <span>Журнал полётов</span>
+        <label class="muted mine"><input type="checkbox" id="only-mine"> только мои</label>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>№</th><th>Игрок</th><th>Тема</th><th class="num">Ставка</th><th class="num">Забрал</th><th class="num">Лопнул</th><th class="num">Выплата</th><th class="num">Очки</th><th>Награда</th></tr>
+          </thead>
+          <tbody id="history"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="result" id="result" hidden>
+    <div class="result-card" role="dialog" aria-labelledby="result-title">
+      <h2 id="result-title">—</h2>
+      <dl class="result-grid">
+        <div><dt>Коэффициент</dt><dd id="r-mult">—</dd></div>
+        <div><dt>Выплата</dt><dd id="r-payout">—</dd></div>
+        <div><dt>Очки</dt><dd id="r-points">—</dd></div>
+        <div><dt>Бустер</dt><dd id="r-booster">—</dd></div>
+      </dl>
+      <p class="result-reward" id="r-reward"></p>
+      <button class="btn btn-launch" id="again" type="button">Ещё полёт</button>
+      <p class="muted small" id="r-timer"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>API: <code id="api-url"></code></span>
+    <button class="linkish" id="change-api" type="button">сменить</button>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
