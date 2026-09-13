@@ -119,7 +119,7 @@ function bindUi() {
     el.addEventListener("change", () => { state.theme = el.value; draw(); }));
   $("launch").addEventListener("click", launch);
   $("cashout").addEventListener("click", cashout);
-  $("again").addEventListener("click", closeResult);
+  $("again").addEventListener("click", () => { closeResult(true); launch(); });
   $("only-mine").addEventListener("change", loadHistory);
   $("change-api").addEventListener("click", () => {
     const next = prompt("Адрес backend", api.base);
@@ -321,7 +321,7 @@ function showResult(result, round) {
   state.resultTimer = setInterval(() => {
     left -= 1;
     $("r-timer").textContent = "Закроется через " + left + " с";
-    if (left <= 0) closeResult();
+    if (left <= 0) closeResult(false);
   }, 1000);
 }
 

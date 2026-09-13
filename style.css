@@ -19,6 +19,9 @@
 
 * { box-sizing: border-box; }
 
+/* Без этого .result { display: grid } перебивает атрибут hidden, и окно не закрывается. */
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   background: var(--paper);
